@@ -4,6 +4,8 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import UserProfile from "./pages/user/UserProfile";
 import UserList from "./pages/user/UserList";
+import UserManagement from "./pages/user/UserManagement";
+import UserDetails from "./pages/user/UserDetails";
 import EditUser from "./pages/user/EditUser";
 import { isAuthenticated } from "./services/userService";
 
@@ -40,6 +42,22 @@ function App() {
           element={
             <ProtectedRoute>
               <UserList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users/management"
+          element={
+            <ProtectedRoute>
+              <UserManagement />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users/:id"
+          element={
+            <ProtectedRoute>
+              <UserDetails />
             </ProtectedRoute>
           }
         />

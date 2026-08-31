@@ -4,6 +4,7 @@ const NAV_ITEMS = [
   { label: "Dashboard", path: "/dashboard" },
   { label: "Projects", path: "/projects" },
   { label: "Sprints", path: "/sprints" },
+  { label: "User Management", path: "/users/management" },
   { label: "CI/CD", path: "/cicd" },
   { label: "Testing", path: "/testing" },
   { label: "Releases", path: "/releases" },
