@@ -1,0 +1,37 @@
+# =========================
+# Frontend - React / Vite
+# =========================
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Environment files
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# =========================
+# Backend - Maven / Spring Boot
+# =========================
+backend/target/
+
+# Environment / secrets
+backend/.env
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+*.iml
+
+# =========================
+# OS
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
