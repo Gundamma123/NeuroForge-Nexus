@@ -1,101 +1,78 @@
-# NeuroForge Nexus - Frontend
-
-## Overview
+# NeuroForge Nexus
 
 NeuroForge Nexus is a Software Development Lifecycle (SDLC) management platform.
 
-This repository contains the **React frontend** of the NeuroForge Nexus project. The frontend provides user interfaces for authentication and user management.
+It helps teams manage users, teams, projects, sprints, and milestones.
 
 ## Technology Stack
 
+### Frontend
 - React
 - JavaScript
-- HTML5
-- CSS3
+- HTML
+- CSS
 - Vite
 - React Router
+- Axios
 
-## Completed Frontend Modules
+### Backend
+- Java
+- Spring Boot
+- Spring Security
+- JWT
+- REST API
+- Maven
 
-### 1. Login
+### Database
+- MySQL
+- Spring Data JPA
+  
 
-- Login page UI
-- Email input
-- Password input
-- Sign In button
-- Error message display
-- Navigation to Registration
+## Milestone 1 Features
 
-### 2. Registration
+- User Registration
+- User Login
+- User Management
+- Role-Based Access Control (RBAC)
+- Team Management
+- Team Assignment
+- Project Creation
+- Sprint Planning
+- Milestone Tracking
 
-- Registration page UI
-- User registration form
-- Form input fields
-- Registration error handling
-- Navigation to Login
-
-### 3. User Management
-
-- User Management dashboard UI
-- User list/table
-- Search users by name or email
-- Filter users by role
-- Display user role
-- Display team information
-- Display active/inactive status
-- Add User navigation
-- View user details
-- Edit user
-- Activate/Deactivate user
-
-## User Roles
-
-The User Management UI currently supports:
-
-- Admin
-- Project Manager
-- Developer
-- Tester
-- DevOps Engineer
-
-## Frontend Project Structure
+## Project Structure
 
 ```text
-frontend/
+NeuroForge Nexus/
 │
-├── public/
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── pages/
+│   │   │   ├── user/
+│   │   │   ├── team/
+│   │   │   ├── project/
+│   │   │   ├── sprint/
+│   │   │   └── milestone/
+│   │   └── services/
+│   ├── package.json
+│   └── vite.config.js
 │
-├── src/
-│   ├── assets/
-│   │   ├── images/
-│   │   └── icons/
-│   │
-│   ├── components/
-│   │   ├── Navbar.jsx
-│   │   ├── Sidebar.jsx
-│   │   └── Footer.jsx
-│   │
-│   ├── pages/
-│   │   ├── Login.jsx
-│   │   ├── Register.jsx
-│   │   ├── Dashboard.jsx
-│   │   └── user/
-│   │       ├── UserProfile.jsx
-│   │       ├── UserList.jsx
-│   │       ├── UserManagement.jsx
-│   │       ├── UserDetails.jsx
-│   │       └── EditUser.jsx
-│   │
-│   ├── services/
-│   │   ├── api.js
-│   │   └── userService.js
-│   │
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── index.css
+├── backend/
+│   ├── src/
+│   │   └── main/
+│   │       ├── java/
+│   │       │   └── com/neuroforge/nexus/
+│   │       │       ├── config/
+│   │       │       ├── controller/
+│   │       │       ├── dto/
+│   │       │       ├── entity/
+│   │       │       ├── exception/
+│   │       │       ├── repository/
+│   │       │       ├── security/
+│   │       │       └── service/
+│   │       └── resources/
+│   └── pom.xml
 │
-├── index.html
-├── package.json
-├── package-lock.json
-├── vite.config.js
 └── .gitignore
