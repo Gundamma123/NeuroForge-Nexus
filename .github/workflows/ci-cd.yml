@@ -67,3 +67,34 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm run build
+
+        deploy-dev:
+    needs: build-frontend
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - run: echo "Deploying to dev"
+
+        deploy-dev:
+    needs: build-frontend          # <- your build job's name
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - run: echo "Deploying to dev"
+
+  deploy-staging:
+    needs: deploy-dev
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - run: echo "Deploying to staging"
+
+  deploy-production:
+    needs: deploy-staging
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - run: echo "Deploying to production"
