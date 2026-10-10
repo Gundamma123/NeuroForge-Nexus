@@ -21,10 +21,30 @@ api.interceptors.request.use((config) => {
 });
 
 // Global 401 handling -> send the user back to login
+// api.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     if (error.response && error.response.status === 401) {
+//       localStorage.removeItem("nf_token");
+//       localStorage.removeItem("nf_user");
+//       window.location.href = "/login";
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
+      // Log exactly which call expired/failed auth, so this is debuggable
+      // from the console instead of only from screenshots.
+      // eslint-disable-next-line no-console
+      console.warn(
+        "[auth] 401 received, logging out. URL:",
+        error.config?.url,
+        "Method:",
+        error.config?.method
+      );
       localStorage.removeItem("nf_token");
       localStorage.removeItem("nf_user");
       window.location.href = "/login";
@@ -32,5 +52,7 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+
 
 export default api;

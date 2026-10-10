@@ -17,6 +17,8 @@ const SprintDetails = () => {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
+  const [boardView, setBoardView] = useState("Board"); // "Board" | "List"
+
   useEffect(() => {
     let cancelled = false;
     getSprintById(id)

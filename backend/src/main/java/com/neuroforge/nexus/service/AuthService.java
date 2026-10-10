@@ -69,9 +69,13 @@ public class AuthService {
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new BadCredentialsException("Invalid email or password"));
 
-        String token = jwtUtil.generateToken(user.getEmail());
+        // String token = jwtUtil.generateToken(user.getEmail());
+        user.setLastLoginAt(java.time.Instant.now());
+        userRepository.save(user);
 
-        AuthResponse.UserInfo userInfo = new AuthResponse.UserInfo(
+         String token = jwtUtil.generateToken(user.getEmail());
+
+             AuthResponse.UserInfo userInfo = new AuthResponse.UserInfo(
                 user.getId(), user.getName(), user.getEmail(), user.getRole().getName());
 
         return new AuthResponse(token, userInfo);

@@ -570,3 +570,512 @@ button {
   flex-wrap: wrap;
   gap: 8px;
 }
+
+/* =========================================================
+   NeuroForge AI Assistant
+   ========================================================= */
+
+.nf-chat-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #38bdf8;
+  border-radius: 50%;
+
+  background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+  color: #ffffff;
+
+  cursor: pointer;
+
+  box-shadow: 0 8px 28px rgba(14, 165, 233, 0.35);
+
+  z-index: 999999;
+}
+
+.nf-chat-fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(14, 165, 233, 0.45);
+}
+
+
+/* ---------- Chat panel ---------- */
+
+.nf-chat-panel {
+  position: fixed;
+
+  right: 24px;
+  bottom: 94px;
+
+  width: 380px;
+  height: 520px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 120px);
+
+  display: flex;
+  flex-direction: column;
+
+  background: #0b1220;
+  border: 1px solid #263750;
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+  z-index: 999998;
+}
+
+
+/* ---------- Header ---------- */
+
+.nf-chat-header {
+  min-height: 58px;
+
+  padding: 0 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #101b2d;
+  border-bottom: 1px solid #263750;
+}
+
+.nf-chat-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.nf-chat-title svg {
+  color: #22d3ee;
+}
+
+.nf-chat-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nf-chat-icon-btn {
+  width: 32px;
+  height: 32px;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 8px;
+
+  background: transparent;
+  color: #94a3b8;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.nf-chat-icon-btn:hover {
+  background: #1b2a40;
+  color: #ffffff;
+}
+
+
+/* ---------- Body ---------- */
+
+.nf-chat-body {
+  flex: 1;
+
+  padding: 14px;
+
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nf-chat-welcome {
+  color: #a8b8cc;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.nf-chat-welcome p {
+  margin: 0 0 12px;
+}
+
+
+/* ---------- Suggestions ---------- */
+
+.nf-chat-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nf-chat-chip {
+  width: 100%;
+
+  padding: 9px 11px;
+
+  border: 1px solid #2a3b55;
+  border-radius: 9px;
+
+  background: #111d30;
+  color: #b9c8da;
+
+  text-align: left;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+.nf-chat-chip:hover:not(:disabled) {
+  border-color: #22d3ee;
+  color: #67e8f9;
+  background: #13263a;
+}
+
+.nf-chat-chip:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* ---------- Messages ---------- */
+
+.nf-chat-msg {
+  max-width: 84%;
+
+  padding: 9px 11px;
+
+  border-radius: 11px;
+
+  font-size: 13px;
+  line-height: 1.5;
+
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.nf-chat-msg.user {
+  align-self: flex-end;
+
+  background: #0ea5e9;
+  color: #ffffff;
+
+  border-bottom-right-radius: 3px;
+}
+
+.nf-chat-msg.bot {
+  align-self: flex-start;
+
+  background: #172337;
+  color: #d8e2ef;
+
+  border-bottom-left-radius: 3px;
+}
+
+.nf-chat-typing {
+  color: #67e8f9;
+}
+
+.nf-chat-error {
+  padding: 9px 11px;
+
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  border-radius: 9px;
+
+  background: rgba(248, 113, 113, 0.1);
+  color: #fca5a5;
+
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+
+/* ---------- Input ---------- */
+
+.nf-chat-input-row {
+  padding: 11px;
+
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+
+  background: #0e1828;
+  border-top: 1px solid #263750;
+}
+
+.nf-chat-input-row textarea {
+  flex: 1;
+
+  min-height: 38px;
+  max-height: 90px;
+
+  resize: none;
+
+  padding: 9px 10px;
+
+  border: 1px solid #2b3d57;
+  border-radius: 9px;
+
+  outline: none;
+
+  background: #111d30;
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.nf-chat-input-row textarea::placeholder {
+  color: #71829a;
+}
+
+.nf-chat-input-row textarea:focus {
+  border-color: #22d3ee;
+}
+
+.nf-chat-input-row textarea:disabled {
+  opacity: 0.6;
+}
+
+
+/* ---------- Send button ---------- */
+
+.nf-chat-send {
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #0ea5e9;
+  color: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.nf-chat-send:hover:not(:disabled) {
+  background: #0284c7;
+}
+
+.nf-chat-send:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 600px) {
+  .nf-chat-panel {
+    right: 12px;
+    bottom: 82px;
+
+    width: calc(100vw - 24px);
+    height: 70vh;
+  }
+
+  .nf-chat-fab {
+    right: 16px;
+    bottom: 16px;
+  }
+}
+
+.nf-gh-merge-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: 1px solid rgba(167, 139, 250, 0.5);
+  color: #c4b5fd;
+  padding: 3px 9px;
+  border-radius: var(--nf-radius-sm);
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.nf-gh-merge-btn:hover { background: rgba(167, 139, 250, 0.14); }
+
+/* ---------- Generic textarea inside forms/modals ---------- */
+.nf-field textarea {
+  width: 100%;
+  min-height: 100px;
+  background: var(--nf-bg-elevated);
+  border: 1px solid var(--nf-card-border);
+  color: var(--nf-text);
+  padding: 10px 12px;
+  border-radius: var(--nf-radius-sm);
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  outline: none;
+}
+.nf-field textarea:focus {
+  border-color: var(--nf-cyan);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15);
+}
+
+/* ---------- GitHub panel additions ---------- */
+.nf-gh-header-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+
+.nf-gh-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--nf-bg-elevated);
+  border: 1px solid var(--nf-card-border);
+  color: var(--nf-text-dim);
+  padding: 4px 10px;
+  border-radius: var(--nf-radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.nf-gh-nav-btn:hover { border-color: var(--nf-cyan); color: var(--nf-cyan-soft); }
+
+.nf-gh-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+
+.nf-gh-label-picker { display: flex; flex-wrap: wrap; gap: 6px; }
+.nf-gh-label-chip {
+  background: var(--nf-bg-elevated);
+  border: 1px solid var(--nf-card-border);
+  color: var(--nf-text-dim);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.nf-gh-label-chip.active { background: var(--nf-accent-grad); border-color: transparent; color: #fff; }
+
+/* ---------- Repository browser ---------- */
+.nf-browser-toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; color: var(--nf-text-dim); }
+
+.nf-breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; font-size: 13px; margin-bottom: 12px; color: var(--nf-text-dim); }
+.nf-breadcrumb button { background: none; border: none; color: var(--nf-cyan-soft); cursor: pointer; font-size: 13px; font-weight: 600; padding: 0; }
+.nf-breadcrumb-part { display: inline-flex; align-items: center; gap: 4px; }
+
+.nf-browser-row { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-bottom: 1px solid var(--nf-card-border); font-size: 13px; }
+.nf-browser-row:last-child { border-bottom: none; }
+.nf-browser-row.clickable { cursor: pointer; }
+.nf-browser-row.clickable:hover { background: rgba(34, 211, 238, 0.05); }
+
+.nf-browser-fileinfo { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px; color: var(--nf-text-dim); margin-bottom: 8px; }
+
+.nf-code-view,
+.nf-readme {
+  background: var(--nf-bg-elevated);
+  border: 1px solid var(--nf-card-border);
+  border-radius: var(--nf-radius-sm);
+  padding: 14px;
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--nf-text);
+  max-height: 520px;
+  overflow: auto;
+}
+.nf-code-view { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre; }
+.nf-readme { white-space: pre-wrap; word-break: break-word; }
+
+/* ---------- Small action buttons in GitHub rows / tables ---------- */
+.nf-gh-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: 1px solid var(--nf-card-border);
+  color: var(--nf-text-dim);
+  padding: 3px 9px;
+  border-radius: var(--nf-radius-sm);
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.nf-gh-action-btn:hover:not(:disabled) { border-color: var(--nf-cyan); color: var(--nf-cyan-soft); }
+.nf-gh-action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ---------- Pull request details modal ---------- */
+.nf-pr-summary { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 13px; margin-bottom: 10px; }
+.nf-pr-reviews { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.nf-pr-review-approved { background: rgba(52, 211, 153, 0.14); color: #6ee7b7; }
+.nf-pr-review-changes_requested { background: rgba(248, 113, 113, 0.14); color: #fca5a5; }
+.nf-pr-review-none { background: rgba(148, 163, 184, 0.14); color: #cbd5e1; }
+
+.nf-diff-file { border: 1px solid var(--nf-card-border); border-radius: var(--nf-radius-sm); margin-bottom: 8px; background: var(--nf-bg-elevated); }
+.nf-diff-file-header { display: flex; align-items: center; gap: 10px; padding: 8px 12px; cursor: pointer; font-size: 12.5px; }
+.nf-diff-add-count { color: #6ee7b7; font-weight: 600; }
+.nf-diff-del-count { color: #fca5a5; font-weight: 600; }
+.nf-diff-body {
+  border-top: 1px solid var(--nf-card-border);
+  overflow: auto;
+  max-height: 360px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+}
+.nf-diff-line { white-space: pre; padding: 0 12px; }
+.nf-diff-line.add { background: rgba(52, 211, 153, 0.12); color: #6ee7b7; }
+.nf-diff-line.del { background: rgba(248, 113, 113, 0.12); color: #fca5a5; }
+.nf-diff-line.hunk { color: var(--nf-cyan-soft); }
+
+/* ---------- Bug tracker ---------- */
+.nf-badge.bug-status-new { background: rgba(34, 211, 238, 0.14); color: #67e8f9; }
+.nf-badge.bug-status-triaged { background: rgba(167, 139, 250, 0.16); color: #c4b5fd; }
+.nf-badge.bug-status-assigned { background: rgba(96, 165, 250, 0.14); color: #93c5fd; }
+.nf-badge.bug-status-in-progress { background: rgba(251, 191, 36, 0.14); color: #fcd34d; }
+.nf-badge.bug-status-fixed { background: rgba(134, 239, 172, 0.14); color: #86efac; }
+.nf-badge.bug-status-retest { background: rgba(251, 146, 60, 0.15); color: #fdba74; }
+.nf-badge.bug-status-closed { background: rgba(52, 211, 153, 0.16); color: #6ee7b7; }
+
+.nf-bug-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin: 14px 0 16px;
+}
+
+.nf-bug-stepper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 0 16px;
+}
+
+.nf-bug-step {
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid var(--nf-card-border);
+  background: var(--nf-bg-elevated);
+  color: var(--nf-text-faint);
+}
+.nf-bug-step.done { color: #6ee7b7; border-color: rgba(52, 211, 153, 0.35); }
+.nf-bug-step.current { background: var(--nf-accent-grad); border-color: transparent; color: #fff; font-weight: 700; }

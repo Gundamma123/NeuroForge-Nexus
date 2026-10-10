@@ -21,6 +21,10 @@ public class SprintService {
         this.projectRepository = projectRepository;
     }
 
+    public List<Sprint> getSprintsByProject(Long projectId) {
+    return sprintRepository.findByProjectId(projectId);
+}
+
     public List<Sprint> getAllSprints() {
         return sprintRepository.findAll();
     }
@@ -44,6 +48,7 @@ public class SprintService {
                     .orElseThrow(() -> new ResourceNotFoundException("Project not found with id: " + request.getProjectId()));
             sprint.setProject(project);
         }
+        validateDates(sprint.getStartDate(), sprint.getEndDate());
 
         return sprintRepository.save(sprint);
     }
@@ -56,10 +61,18 @@ public class SprintService {
         sprint.setStartDate(request.getStartDate());
         sprint.setEndDate(request.getEndDate());
         if (request.getStatus() != null) sprint.setStatus(request.getStatus());
+        validateDates(sprint.getStartDate(), sprint.getEndDate());
         return sprintRepository.save(sprint);
     }
 
     public void deleteSprint(Long id) {
         sprintRepository.delete(getSprintById(id));
     }
+    private void validateDates(java.time.LocalDate startDate, java.time.LocalDate endDate) {
+    if (startDate != null && endDate != null && !endDate.isAfter(startDate)) {
+        throw new IllegalArgumentException("End date must be after start date.");
+    }
+}
+
+
 }

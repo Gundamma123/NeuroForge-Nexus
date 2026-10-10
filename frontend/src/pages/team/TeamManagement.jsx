@@ -1,35 +1,29 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import Footer from "../../components/Footer";
-import { getAllTeams, deleteTeam } from "../../services/teamService";
-
-const FALLBACK_TEAMS = [
-  { id: "1", name: "Backend", project: { name: "FinCore Nexus" }, memberCount: 5 },
-  { id: "2", name: "Frontend", project: { name: "FinCore Nexus" }, memberCount: 3 },
-  { id: "3", name: "QA", project: { name: "FinCore Nexus" }, memberCount: 3 },
-  { id: "4", name: "DevOps", project: { name: "FinCore Nexus" }, memberCount: 2 },
-];
+import { getAllTeams, getTeamsByProject, deleteTeam } from "../../services/teamService";
 
 const TeamManagement = () => {
   const navigate = useNavigate();
-  const [teams, setTeams] = useState(FALLBACK_TEAMS);
+  const { projectId } = useParams(); // present only on /projects/:projectId/teams
+  const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   const loadTeams = () => {
-    getAllTeams()
-      .then((data) => {
-        if (Array.isArray(data) && data.length > 0) setTeams(data);
-      })
-      .catch(() => setError("Could not reach the Team Service — showing sample data."))
+    const fetchTeams = projectId ? getTeamsByProject(projectId) : getAllTeams();
+    fetchTeams
+      .then((data) => setTeams(Array.isArray(data) ? data : []))
+      .catch(() => setError("Could not reach the Team Service."))
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
     loadTeams();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projectId]);
 
   const handleDelete = async (id) => {
     try {
@@ -46,6 +40,12 @@ const TeamManagement = () => {
       <div className="nf-body">
         <Sidebar />
         <main className="nf-main">
+          {projectId && (
+            <span className="nf-back-link" onClick={() => navigate(`/projects/${projectId}`)}>
+              ← Back to Project
+            </span>
+          )}
+
           <h1 className="nf-page-title">Team Management</h1>
 
           {error && <div className="nf-form-error">{error}</div>}
@@ -53,9 +53,6 @@ const TeamManagement = () => {
           <div className="nf-panel">
             <div className="nf-toolbar">
               <div style={{ flex: 1 }} />
-              <button className="nf-btn secondary" onClick={() => navigate("/teams/assign")}>
-                Assign Team
-              </button>
               <button className="nf-btn" onClick={() => navigate("/teams/create")}>
                 + Create Team
               </button>
@@ -67,6 +64,7 @@ const TeamManagement = () => {
                   <tr>
                     <th>Team Name</th>
                     <th>Project</th>
+                    <th>Team Size</th>
                     <th>Members</th>
                     <th>Actions</th>
                   </tr>
@@ -76,11 +74,17 @@ const TeamManagement = () => {
                     <tr key={t.id}>
                       <td><b>{t.name}</b></td>
                       <td>{t.project?.name || "Unassigned"}</td>
-                      <td>{t.memberCount ?? 0}</td>
+                      <td>{t.memberCount ?? (t.members?.length || 0)}</td>
                       <td>
-                        <button className="nf-link-btn danger" onClick={() => handleDelete(t.id)}>
-                          Remove
+                        <button className="nf-link-btn" onClick={() => navigate(`/teams/${t.id}/members`)}>
+                          {t.members?.length || t.memberCount || 0} Members
                         </button>
+                      </td>
+                      <td>
+                        <div className="nf-table-actions">
+                          <button className="nf-link-btn" onClick={() => navigate(`/teams/${t.id}/members`)}>View</button>
+                          <button className="nf-link-btn danger" onClick={() => handleDelete(t.id)}>Remove</button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -88,7 +92,9 @@ const TeamManagement = () => {
               </table>
 
               {!loading && teams.length === 0 && (
-                <div className="nf-empty-state">No teams yet. Create your first one.</div>
+                <div className="nf-empty-state">
+                  {projectId ? "No teams assigned to this project." : "No teams yet. Create your first one."}
+                </div>
               )}
             </div>
           </div>

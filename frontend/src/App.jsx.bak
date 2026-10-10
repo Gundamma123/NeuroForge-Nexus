@@ -1,0 +1,846 @@
+// import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+// // Authentication
+// import Login from "./pages/Login";
+// import Register from "./pages/Register";
+
+// // Dashboard
+// import Dashboard from "./pages/Dashboard";
+// import ComingSoon from "./pages/ComingSoon";
+
+// // Users
+// import UserProfile from "./pages/user/UserProfile";
+// import UserList from "./pages/user/UserList";
+// import UserManagement from "./pages/user/UserManagement";
+// import UserDetails from "./pages/user/UserDetails";
+// import EditUser from "./pages/user/EditUser";
+
+// // Projects
+// import ProjectList from "./pages/project/ProjectList";
+// import CreateProject from "./pages/project/CreateProject";
+// import ProjectDetails from "./pages/project/ProjectDetails";
+
+// // Teams
+// import TeamManagement from "./pages/team/TeamManagement";
+// import CreateTeam from "./pages/team/CreateTeam";
+// import SelectMembers from "./pages/team/SelectMembers";
+// import TeamDetails from "./pages/team/TeamDetails";
+// import TeamMembers from "./pages/team/TeamMembers";
+
+// // Sprints
+// import SprintManagement from "./pages/SprintManagement";
+// import SprintDetails from "./pages/SprintDetails";
+
+// // Tasks
+// import TaskManagement from "./pages/tasks/TaskManagement";
+// import CreateTask from "./pages/tasks/CreateTask";
+// import TaskDetails from "./pages/tasks/TaskDetails";
+// import EditTask from "./pages/tasks/EditTask";
+
+// // SubTasks
+// import SubTaskList from "./pages/tasks/SubTaskList";
+// import CreateSubTask from "./pages/tasks/CreateSubTask";
+// import SubTaskDetails from "./pages/tasks/SubTaskDetails";
+
+// import TimelineView from "./pages/tasks/TimelineView";
+// import CalendarView from "./pages/tasks/CalendarView";
+// import ListView from "./pages/tasks/ListView";
+
+// // Authentication helper
+// import { isAuthenticated } from "./services/userService";
+// import ChatWidget from "./components/ChatWidget";
+
+
+// // Protected Route
+// const ProtectedRoute = ({ children }) => {
+//   return isAuthenticated() ? (
+//     children
+//   ) : (
+//     <Navigate to="/login" replace />
+//   );
+// };
+
+
+// function App() {
+//   return (
+//     <BrowserRouter>
+//       <Routes>
+
+//         {/* ================= DEFAULT ================= */}
+
+//         <Route
+//           path="/"
+//           element={<Navigate to="/login" replace />}
+//         />
+
+//         {/* ================= AUTHENTICATION ================= */}
+
+//         <Route path="/login" element={<Login />} />
+//         <Route path="/register" element={<Register />} />
+
+
+//         {/* ================= DASHBOARD ================= */}
+
+//         <Route
+//           path="/dashboard"
+//           element={
+//             <ProtectedRoute>
+//               <Dashboard />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/profile"
+//           element={
+//             <ProtectedRoute>
+//               <UserProfile />
+//             </ProtectedRoute>
+//           }
+//         />
+
+
+//         {/* ================= USERS ================= */}
+
+//         <Route
+//           path="/users"
+//           element={
+//             <ProtectedRoute>
+//               <UserList />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/users/management"
+//           element={
+//             <ProtectedRoute>
+//               <UserManagement />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/users/:id"
+//           element={
+//             <ProtectedRoute>
+//               <UserDetails />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/users/:id/edit"
+//           element={
+//             <ProtectedRoute>
+//               <EditUser />
+//             </ProtectedRoute>
+//           }
+//         />
+
+
+//         {/* ================= PROJECTS ================= */}
+
+//         <Route
+//           path="/projects"
+//           element={
+//             <ProtectedRoute>
+//               <ProjectList />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/projects/create"
+//           element={
+//             <ProtectedRoute>
+//               <CreateProject />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/projects/:id"
+//           element={
+//             <ProtectedRoute>
+//               <ProjectDetails />
+//             </ProtectedRoute>
+//           }
+//         />
+
+
+//         {/* ================= TEAMS ================= */}
+
+//         <Route
+//           path="/teams"
+//           element={
+//             <ProtectedRoute>
+//               <TeamManagement />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/teams/create"
+//           element={
+//             <ProtectedRoute>
+//               <CreateTeam />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/teams/select-members"
+//           element={
+//             <ProtectedRoute>
+//               <SelectMembers />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/teams/:id"
+//           element={
+//             <ProtectedRoute>
+//               <TeamDetails />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/teams/:id/members"
+//           element={
+//             <ProtectedRoute>
+//               <TeamMembers />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/projects/:projectId/teams"
+//           element={
+//             <ProtectedRoute>
+//               <TeamManagement />
+//             </ProtectedRoute>
+//           }
+//         />
+
+
+//         {/* ================= SPRINTS ================= */}
+
+//         <Route
+//           path="/sprints"
+//           element={
+//             <ProtectedRoute>
+//               <SprintManagement />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/projects/:projectId/sprints"
+//           element={
+//             <ProtectedRoute>
+//               <SprintManagement />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/sprints/:id"
+//           element={
+//             <ProtectedRoute>
+//               <SprintDetails />
+//             </ProtectedRoute>
+//           }
+//         />
+
+
+//         {/* ================= TASKS ================= */}
+
+//         <Route
+//           path="/sprints/:sprintId/tasks"
+//           element={
+//             <ProtectedRoute>
+//               <TaskManagement />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/sprints/:sprintId/tasks/create"
+//           element={
+//             <ProtectedRoute>
+//               <CreateTask />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/tasks/:id"
+//           element={
+//             <ProtectedRoute>
+//               <TaskDetails />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/tasks/:id/edit"
+//           element={
+//             <ProtectedRoute>
+//               <EditTask />
+//             </ProtectedRoute>
+//           }
+//         />
+
+
+//         {/* ================= SUBTASKS ================= */}
+
+//         <Route
+//           path="/tasks/:taskId/subtasks"
+//           element={
+//             <ProtectedRoute>
+//               <SubTaskList />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/tasks/:taskId/subtasks/create"
+//           element={
+//             <ProtectedRoute>
+//               <CreateSubTask />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/subtasks/:id"
+//           element={
+//             <ProtectedRoute>
+//               <SubTaskDetails />
+//             </ProtectedRoute>
+//           }
+//         />
+
+
+//         {/* ================= OTHER MODULES ================= */}
+
+//         <Route
+//           path="/cicd"
+//           element={
+//             <ProtectedRoute>
+//               <ComingSoon title="CI/CD" />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/testing"
+//           element={
+//             <ProtectedRoute>
+//               <ComingSoon title="Testing" />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/releases"
+//           element={
+//             <ProtectedRoute>
+//               <ComingSoon title="Releases" />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         <Route
+//           path="/monitoring"
+//           element={
+//             <ProtectedRoute>
+//               <ComingSoon title="Monitoring" />
+//             </ProtectedRoute>
+//           }
+//         />
+
+//         {/* // inside <Routes>: */}
+//         <Route path="/sprints/:sprintId/timeline" element={<ProtectedRoute><TimelineView /></ProtectedRoute>} />
+//         <Route path="/sprints/:sprintId/calendar" element={<ProtectedRoute><CalendarView /></ProtectedRoute>} />
+//         <Route path="/sprints/:sprintId/list" element={<ProtectedRoute><ListView /></ProtectedRoute>} />
+
+
+//         {/* ================= INVALID URL ================= */}
+
+//         <Route
+//           path="*"
+//           element={<Navigate to="/login" replace />}
+//         />
+
+//       </Routes>
+//     </BrowserRouter>
+//   );
+// }
+
+// export default App;
+// // FILE_TEST_123
+
+
+
+
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+// Authentication
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
+// Dashboard
+import Dashboard from "./pages/Dashboard";
+import ComingSoon from "./pages/ComingSoon";
+
+// Users
+import UserProfile from "./pages/user/UserProfile";
+import UserList from "./pages/user/UserList";
+import UserManagement from "./pages/user/UserManagement";
+import UserDetails from "./pages/user/UserDetails";
+import EditUser from "./pages/user/EditUser";
+
+// Projects
+import ProjectList from "./pages/project/ProjectList";
+import CreateProject from "./pages/project/CreateProject";
+import ProjectDetails from "./pages/project/ProjectDetails";
+
+// Teams
+import TeamManagement from "./pages/team/TeamManagement";
+import CreateTeam from "./pages/team/CreateTeam";
+import SelectMembers from "./pages/team/SelectMembers";
+import TeamDetails from "./pages/team/TeamDetails";
+import TeamMembers from "./pages/team/TeamMembers";
+
+// Sprints
+import SprintManagement from "./pages/SprintManagement";
+import SprintDetails from "./pages/SprintDetails";
+
+// Tasks
+import TaskManagement from "./pages/tasks/TaskManagement";
+import CreateTask from "./pages/tasks/CreateTask";
+import TaskDetails from "./pages/tasks/TaskDetails";
+import EditTask from "./pages/tasks/EditTask";
+
+// SubTasks
+import SubTaskList from "./pages/tasks/SubTaskList";
+import CreateSubTask from "./pages/tasks/CreateSubTask";
+import SubTaskDetails from "./pages/tasks/SubTaskDetails";
+
+import TimelineView from "./pages/tasks/TimelineView";
+import CalendarView from "./pages/tasks/CalendarView";
+import ListView from "./pages/tasks/ListView";
+
+// Authentication helper
+import { isAuthenticated } from "./services/userService";
+
+// AI Chatbot
+import ChatWidget from "./components/ChatWidget";
+
+import Monitoring from "./pages/Monitoring";
+
+import Deployments from "./pages/Deployments";
+import Releases from "./pages/Releases";
+import Pipelines from "./pages/Pipelines";
+
+
+
+
+
+
+// Protected Route
+const ProtectedRoute = ({ children }) => {
+  
+  return isAuthenticated() ? (
+    children
+  ) : (
+    <Navigate to="/login" replace />
+  );
+};
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+
+        {/* ================= DEFAULT ================= */}
+
+        <Route
+          path="/"
+          element={<Navigate to="/login" replace />}
+        />
+
+        {/* ================= AUTHENTICATION ================= */}
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+
+        {/* ================= DASHBOARD ================= */}
+
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <UserProfile />
+            </ProtectedRoute>
+          }
+        />
+
+
+        {/* ================= USERS ================= */}
+
+        <Route
+          path="/users"
+          element={
+            <ProtectedRoute>
+              <UserList />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/users/management"
+          element={
+            <ProtectedRoute>
+              <UserManagement />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/users/:id"
+          element={
+            <ProtectedRoute>
+              <UserDetails />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/users/:id/edit"
+          element={
+            <ProtectedRoute>
+              <EditUser />
+            </ProtectedRoute>
+          }
+        />
+
+
+        {/* ================= PROJECTS ================= */}
+
+        <Route
+          path="/projects"
+          element={
+            <ProtectedRoute>
+              <ProjectList />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/projects/create"
+          element={
+            <ProtectedRoute>
+              <CreateProject />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/projects/:id"
+          element={
+            <ProtectedRoute>
+              <ProjectDetails />
+            </ProtectedRoute>
+          }
+        />
+
+
+        {/* ================= TEAMS ================= */}
+
+        <Route
+          path="/teams"
+          element={
+            <ProtectedRoute>
+              <TeamManagement />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/teams/create"
+          element={
+            <ProtectedRoute>
+              <CreateTeam />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/teams/select-members"
+          element={
+            <ProtectedRoute>
+              <SelectMembers />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/teams/:id"
+          element={
+            <ProtectedRoute>
+              <TeamDetails />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/teams/:id/members"
+          element={
+            <ProtectedRoute>
+              <TeamMembers />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/projects/:projectId/teams"
+          element={
+            <ProtectedRoute>
+              <TeamManagement />
+            </ProtectedRoute>
+          }
+        />
+
+
+        {/* ================= SPRINTS ================= */}
+
+        <Route
+          path="/sprints"
+          element={
+            <ProtectedRoute>
+              <SprintManagement />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/projects/:projectId/sprints"
+          element={
+            <ProtectedRoute>
+              <SprintManagement />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/sprints/:id"
+          element={
+            <ProtectedRoute>
+              <SprintDetails />
+            </ProtectedRoute>
+          }
+        />
+
+
+        {/* ================= TASKS ================= */}
+
+        <Route
+          path="/sprints/:sprintId/tasks"
+          element={
+            <ProtectedRoute>
+              <TaskManagement />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/sprints/:sprintId/tasks/create"
+          element={
+            <ProtectedRoute>
+              <CreateTask />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/tasks/:id"
+          element={
+            <ProtectedRoute>
+              <TaskDetails />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/tasks/:id/edit"
+          element={
+            <ProtectedRoute>
+              <EditTask />
+            </ProtectedRoute>
+          }
+        />
+
+
+        {/* ================= SUBTASKS ================= */}
+
+        <Route
+          path="/tasks/:taskId/subtasks"
+          element={
+            <ProtectedRoute>
+              <SubTaskList />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/tasks/:taskId/subtasks/create"
+          element={
+            <ProtectedRoute>
+              <CreateSubTask />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/subtasks/:id"
+          element={
+            <ProtectedRoute>
+              <SubTaskDetails />
+            </ProtectedRoute>
+          }
+        />
+
+
+        {/* ================= OTHER MODULES ================= */}
+
+        <Route
+          path="/cicd"
+          element={
+            <ProtectedRoute>
+              <ComingSoon title="CI/CD" />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/testing"
+          element={
+            <ProtectedRoute>
+              <ComingSoon title="Testing" />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* <Route
+          path="/releases"
+          element={
+            <ProtectedRoute>
+              <ComingSoon title="Releases" />
+            </ProtectedRoute>
+          }
+        /> */}
+            <Route
+           path="/releases"
+           element={
+             <ProtectedRoute>
+               <Releases />
+               </ProtectedRoute>
+                      }
+                     />
+
+
+
+        <Route
+          path="/monitoring"
+          element={
+            <ProtectedRoute>
+              <ComingSoon title="Monitoring" />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+  path="/pipelines"
+  element={
+    <ProtectedRoute>
+      <Pipelines />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/deployments"
+  element={
+    <ProtectedRoute>
+      <Deployments />
+    </ProtectedRoute>
+  }
+/>
+
+
+        {/* ================= TASK VIEWS ================= */}
+
+        <Route
+          path="/sprints/:sprintId/timeline"
+          element={
+            <ProtectedRoute>
+              <TimelineView />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/sprints/:sprintId/calendar"
+          element={
+            <ProtectedRoute>
+              <CalendarView />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/sprints/:sprintId/list"
+          element={
+            <ProtectedRoute>
+              <ListView />
+            </ProtectedRoute>
+          }
+        />
+
+
+        {/* ================= INVALID URL ================= */}
+
+        <Route
+          path="*"
+          element={<Navigate to="/login" replace />}
+        />
+        
+
+
+
+
+      </Routes>
+
+      {/* ================= AI CHATBOT ================= */}
+
+      <ChatWidget />
+
+    </BrowserRouter>
+  );
+}
+
+export default App;

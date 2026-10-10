@@ -45,4 +45,11 @@ public class ProjectController {
     public ResponseEntity<Map<String, Object>> getDashboardSummary() {
         return ResponseEntity.ok(projectService.getDashboardSummary());
     }
+    @DeleteMapping("/projects/{id}")
+    public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
+    projectService.deleteProject(id);
+    return ResponseEntity.noContent().build();
+}
+
+
 }

@@ -25,6 +25,15 @@ public class SprintController {
         return ResponseEntity.ok(sprintService.getAllSprints());
     }
 
+    @GetMapping("/project/{projectId}")
+public ResponseEntity<List<Sprint>> getSprintsByProject(
+        @PathVariable Long projectId) {
+
+    return ResponseEntity.ok(
+            sprintService.getSprintsByProject(projectId)
+    );
+}
+
     @GetMapping("/{id}")
     public ResponseEntity<Sprint> getSprintById(@PathVariable Long id) {
         return ResponseEntity.ok(sprintService.getSprintById(id));

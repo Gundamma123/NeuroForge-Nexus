@@ -13,7 +13,6 @@ export const getProjectById = async (id) => {
 };
 
 export const createProject = async (payload) => {
-  // payload: { name, status, teamSize, description }
   const { data } = await api.post("/projects", payload);
   return data;
 };
@@ -23,11 +22,16 @@ export const updateProject = async (id, payload) => {
   return data;
 };
 
+export const deleteProject = async (id) => {
+  await api.delete(`/projects/${id}`);
+};
+
 const projectService = {
   getAllProjects,
   getProjectById,
   createProject,
   updateProject,
+  deleteProject,
 };
 
 export default projectService;

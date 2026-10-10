@@ -25,6 +25,12 @@ public class TeamController {
         return ResponseEntity.ok(teamService.getAllTeams());
     }
 
+    // Powers the Project Details "Team" panel — teams belonging to one project
+    @GetMapping("/project/{projectId}")
+    public ResponseEntity<List<Team>> getTeamsByProject(@PathVariable Long projectId) {
+        return ResponseEntity.ok(teamService.getTeamsByProject(projectId));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Team> getTeamById(@PathVariable Long id) {
         return ResponseEntity.ok(teamService.getTeamById(id));
@@ -45,4 +51,18 @@ public class TeamController {
         teamService.deleteTeam(id);
         return ResponseEntity.noContent().build();
     }
+    // Add this method to the existing TeamController class:
+
+@GetMapping("/assigned-members")
+public ResponseEntity<List<Long>> getAssignedMemberIds(
+        @RequestParam(required = false) Long excludeTeamId) {
+    return ResponseEntity.ok(teamService.getAssignedMemberIds(excludeTeamId));
+}
+
+@DeleteMapping("/{teamId}/members/{memberId}")
+public ResponseEntity<Team> removeMember(@PathVariable Long teamId, @PathVariable Long memberId) {
+    return ResponseEntity.ok(teamService.removeMemberFromTeam(teamId, memberId));
+}
+
+
 }

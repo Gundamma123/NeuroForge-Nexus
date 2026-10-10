@@ -1,14 +1,18 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { LayoutDashboard, FolderKanban, Bug } from "lucide-react";
+import { Bug } from "lucide-react";
 
 const NAV_ITEMS = [
-  { label: "Dashboard", path: "/dashboard" },
-  { label: "Projects", path: "/projects" },
+  { label: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+  { label: "Projects", path: "/projects", icon: FolderKanban },
   { label: "Sprints", path: "/sprints" },
-  { label: "User Management", path: "/users/management" },
-  { label: "CI/CD", path: "/cicd" },
-  { label: "Testing", path: "/testing" },
-  { label: "Releases", path: "/releases" },
-  { label: "Monitoring", path: "/monitoring" },
+  { label: "Testing", path: "/testing", icon: Bug },
+  { label: "User Management", path: "/users/management", icon: UserCog },
+  { label: "CI/CD", path: "/cicd", icon: Workflow },
+  { label: "Testing", path: "/testing", icon: Bug },
+  { label: "Releases", path: "/releases", icon: Rocket },
+  { label: "Monitoring", path: "/monitoring", icon: Activity },
+
 ];
 
 const Sidebar = () => {

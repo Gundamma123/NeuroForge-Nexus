@@ -47,4 +47,29 @@ public class User {
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    // Add inside the User class, alongside existing fields:
+
+@Column(name = "github_access_token", length = 500)
+private String githubAccessToken; // stored encrypted via EncryptionUtil
+
+@Column(name = "github_username")
+private String githubUsername;
+
+@Column(name = "github_installation_id")
+private Long githubInstallationId;
+
+@Column(name = "last_login_at")
+private java.time.Instant lastLoginAt;
+
+
+
+
+
+
+
 }
+
+
+
+

@@ -4,7 +4,9 @@ import com.neuroforge.nexus.dto.ProjectRequest;
 import com.neuroforge.nexus.entity.Milestone;
 import com.neuroforge.nexus.entity.Project;
 import com.neuroforge.nexus.entity.Sprint;
+import com.neuroforge.nexus.entity.Team;
 import com.neuroforge.nexus.exception.ResourceNotFoundException;
+// 1) import
 import com.neuroforge.nexus.repository.*;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+
 
 @Service
 public class ProjectService {
@@ -22,16 +26,24 @@ public class ProjectService {
     private final SprintRepository sprintRepository;
     private final MilestoneRepository milestoneRepository;
 
-    public ProjectService(ProjectRepository projectRepository,
+
+      // 2) field, plus constructor parameter and assignment (add alongside your existing ones)
+        private final BugRepository bugRepository;
+       // constructor: add "BugRepository bugRepository" and "this.bugRepository = bugRepository;"
+
+
+        public ProjectService(ProjectRepository projectRepository,
                            UserRepository userRepository,
                            TeamRepository teamRepository,
                            SprintRepository sprintRepository,
-                           MilestoneRepository milestoneRepository) {
+                           MilestoneRepository milestoneRepository,
+                           BugRepository bugRepository) {
         this.projectRepository = projectRepository;
         this.userRepository = userRepository;
         this.teamRepository = teamRepository;
         this.sprintRepository = sprintRepository;
         this.milestoneRepository = milestoneRepository;
+        this.bugRepository = bugRepository;
     }
 
     public List<Project> getAllProjects() {
@@ -51,15 +63,78 @@ public class ProjectService {
         project.setDescription(request.getDescription());
         return projectRepository.save(project);
     }
+    // nn
+public Project updateProject(Long id, ProjectRequest request) {
+    Project project = getProjectById(id);
+    boolean justCompleted = "Completed".equals(request.getStatus()) && !"Completed".equals(project.getStatus());
 
-    public Project updateProject(Long id, ProjectRequest request) {
-        Project project = getProjectById(id);
-        project.setName(request.getName());
-        if (request.getStatus() != null) project.setStatus(request.getStatus());
-        if (request.getTeamSize() != null) project.setTeamSize(request.getTeamSize());
-        project.setDescription(request.getDescription());
-        return projectRepository.save(project);
+    project.setName(request.getName());
+    if (request.getStatus() != null) project.setStatus(request.getStatus());
+    if (request.getTeamSize() != null) project.setTeamSize(request.getTeamSize());
+    project.setDescription(request.getDescription());
+
+    Project saved = projectRepository.save(project);
+
+    if (justCompleted) {
+        releaseTeamMembers(id);
     }
+
+    return saved;
+}
+
+public void deleteProject(Long id) {
+    Project project = getProjectById(id);
+
+    releaseTeamMembers(id); // frees all members before unlinking teams
+
+    List<Team> linkedTeams = teamRepository.findByProjectId(id);
+    for (Team team : linkedTeams) {
+        team.setProject(null);
+        teamRepository.save(team);
+    }
+
+    List<Milestone> linkedMilestones = milestoneRepository.findByProjectId(id);
+    for (Milestone milestone : linkedMilestones) {
+        milestone.setProject(null);
+        milestoneRepository.save(milestone);
+    }
+
+    List<Sprint> linkedSprints = sprintRepository.findByProjectId(id);
+    for (Sprint sprint : linkedSprints) {
+        sprint.setProject(null);
+        sprintRepository.save(sprint);
+    }
+
+    projectRepository.delete(project);
+}
+
+// Clears every team's member list for this project, instantly making those
+// members available again (availability is computed dynamically from team
+// assignment — there is no separate isAvailable flag to update).
+private void releaseTeamMembers(Long projectId) {
+    List<Team> teams = teamRepository.findByProjectId(projectId);
+    for (Team team : teams) {
+        team.getMembers().clear();
+        team.setMemberCount(0);
+        teamRepository.save(team);
+    }
+}
+    
+
+//     public void deleteProject(Long id) {
+//     Project project = getProjectById(id);
+
+//     // Unlink any teams pointing at this project first, so MySQL's foreign key
+//     // constraint on Team.project_id doesn't block the delete. Teams themselves
+//     // are preserved — they just become "Unassigned" instead of being destroyed.
+//     List<Team> linkedTeams = teamRepository.findByProjectId(id);
+//     for (Team team : linkedTeams) {
+//         team.setProject(null);
+//         teamRepository.save(team);
+//     }
+
+//     projectRepository.delete(project);
+// }
 
     /**
      * Builds the "RBAC & Team Setup" summary consumed by the frontend Dashboard
@@ -133,4 +208,6 @@ public class ProjectService {
         return String.format("Admin: %d, PM: %d, Devs: %d, Testers: %d, DevOps: %d",
                 admins, pms, devs, testers, devops);
     }
-}
+
+    
+} 

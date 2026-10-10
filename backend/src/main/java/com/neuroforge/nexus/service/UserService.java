@@ -9,6 +9,7 @@ import com.neuroforge.nexus.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserService {
@@ -49,4 +50,26 @@ public class UserService {
 
         return userRepository.save(user);
     }
+    public Map<String, Object> getGithubStatus(String email) {
+    User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+    Map<String, Object> status = new java.util.LinkedHashMap<>();
+    status.put("connected", user.getGithubAccessToken() != null);
+    status.put("githubUsername", user.getGithubUsername());
+    return status;
+}
+
+public void disconnectGithub(String email) {
+    User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    user.setGithubAccessToken(null);
+    user.setGithubUsername(null);
+    user.setGithubInstallationId(null);
+    userRepository.save(user);
+}
+
+
+
+
 }

@@ -12,6 +12,11 @@ export const getTeamById = async (id) => {
   return data;
 };
 
+export const getTeamsByProject = async (projectId) => {
+  const { data } = await api.get(`/teams/project/${projectId}`);
+  return data;
+};
+
 export const createTeam = async (payload) => {
   // payload: { name, projectId, memberCount }
   const { data } = await api.post("/teams", payload);
@@ -27,12 +32,30 @@ export const deleteTeam = async (id) => {
   await api.delete(`/teams/${id}`);
 };
 
+export const getAssignedMemberIds = async (excludeTeamId) => {
+  const params = excludeTeamId ? { excludeTeamId } : {};
+  const { data } = await api.get("/teams/assigned-members", { params });
+  return data;
+};
+
+// Remove a member from a team
+export const removeMemberFromTeam = async (teamId, memberId) => {
+  const { data } = await api.delete(
+    `/teams/${teamId}/members/${memberId}`
+  );
+  return data;
+};
+
+// Default service object
 const teamService = {
   getAllTeams,
   getTeamById,
+  getTeamsByProject,
+  getAssignedMemberIds,
   createTeam,
   updateTeam,
   deleteTeam,
+  removeMemberFromTeam,
 };
 
 export default teamService;
