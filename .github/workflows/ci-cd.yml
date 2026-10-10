@@ -47,6 +47,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Debug secrets
+        run: |
+          echo "USERNAME length: ${#USERNAME}"
+          echo "PASSWORD length: ${#PASSWORD}"
+        env:
+          USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
