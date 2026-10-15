@@ -1,3 +1,4 @@
+```yaml
 name: NeuroForge Nexus CI/CD
 
 on:
@@ -44,6 +45,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: [frontend-build, backend-build]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - uses: actions/checkout@v4
 
@@ -58,3 +64,4 @@ jobs:
           tags: |
             ghcr.io/gundamma123/neuroforge-nexus:latest
             ghcr.io/gundamma123/neuroforge-nexus:${{ github.sha }}
+```
