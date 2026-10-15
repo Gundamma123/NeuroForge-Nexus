@@ -1,5 +1,4 @@
-```yaml
-name: NeuroForge Nexus CI/CD
+﻿name: NeuroForge Nexus CI/CD
 
 'on':
   push:
@@ -68,4 +67,3 @@ jobs:
           tags: |
             ghcr.io/gundamma123/neuroforge-nexus:latest
             ghcr.io/gundamma123/neuroforge-nexus:${{ github.sha }}
-```
